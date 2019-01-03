@@ -4,7 +4,7 @@ let config = {
     dev: 'development',
     test: 'testing',
     prod: 'production',
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 3001,
     // 10 days in minutes
     expireTime: "10d",
     //cexpireTime: 24 * 60 * 10,
