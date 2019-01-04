@@ -61,8 +61,18 @@ exports.post = function(req, res, next) {
     });
 };
 
+// Deprication - remove
+// exports.delete = function(req, res, next) {
+//   req.review.remove(function(err, removed) {
+//     if (err) {
+//       next(err);
+//     } else {
+//       res.json(removed);
+//     }
+//   });
+// };
 exports.delete = function(req, res, next) {
-  req.review.remove(function(err, removed) {
+  req.review.deleteOne(function(err, removed) {
     if (err) {
       next(err);
     } else {
