@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const logger = require('../../util/logger');
 const controller = require('./userController');
 const auth = require('../../auth/auth');
 
@@ -10,15 +9,12 @@ router.param('id', controller.params);
 router.get('/me', checkUser, controller.me);
 
 router.route('/')
-    .get(controller.get)
-    .post(controller.post);
+  .get(controller.get)
+  .post(controller.post);
 
 router.route('/:id')
-    .get(controller.getOne)
-    .put(checkUser, controller.put)         // add new middleware BEFORE checkUser to prevent other user from modifying
-    .delete(checkUser, controller.delete);  // add new middleware BEFORE checkUser to prevent other user from deleting
-
-// N.B. New middleware above would check id received on req against id in database
-//
+  .get(controller.getOne)
+  .put(checkUser, controller.put)
+  .delete(checkUser, controller.delete);
 
 module.exports = router;
