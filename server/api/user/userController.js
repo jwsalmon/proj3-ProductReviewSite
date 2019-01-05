@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const User = require('./userModel');
-// const signToken = require('../../auth/auth').signToken;
 const { signToken } = require('../../auth/auth');
 
 exports.params = (req, res, next, id) => {
@@ -64,16 +63,6 @@ exports.post = (req, res, next) => {
   });
 };
 
-// Deprication - remove
-// exports.delete = (req, res, next) => {
-//   req.user.remove((err, removed) => {
-//     if (err) {
-//       next(err);
-//     } else {
-//       res.json(removed);
-//     }
-//   });
-// };
 exports.delete = (req, res, next) => {
   req.user.deleteOne((err, removed) => {
     if (err) {

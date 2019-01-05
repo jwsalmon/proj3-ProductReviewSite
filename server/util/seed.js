@@ -25,15 +25,6 @@ var createDoc = function(model, doc) {
   });
 };
 
-// Deprication - remove
-// var cleanDB = function() {
-//   logger.log('... cleaning the DB');
-//   var cleanPromises = [User, Review]
-//     .map(function(model) {
-//       return model.remove().exec();
-//     });
-//   return Promise.all(cleanPromises);
-// }
 var cleanDB = function() {
   logger.log('... cleaning the DB');
   var cleanPromises = [User, Review]

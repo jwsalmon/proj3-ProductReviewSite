@@ -1,78 +1,68 @@
-const Review = require('./reviewModel');
 const _ = require('lodash');
+const Review = require('./reviewModel');
 const logger = require('../../util/logger');
 
-exports.params = function(req, res, next, id) {
-  Review.findById(id)       // checks if id exists in db of that collection
-    .populate('author', 'username')   // don't update with password, only username
+exports.params = (req, res, next, id) => {
+  Review.findById(id)
+    .populate('author', 'username')
     .exec()
-    .then(function(review) {
+    .then((review) => {
       if (!review) {
         next(new Error('No review with that id'));
       } else {
-        req.review = review;  // assigns that id review to req.review
-        next();         // call next - it is middleware before called routes /:id
+        req.review = review;
+        next();
       }
-    }, function(err) {
+    }, (err) => {
       next(err);
     });
 };
 
-exports.get = function(req, res, next) {
+exports.get = (req, res, next) => {
   Review.find({})
     .populate('author')
     .exec()
-    .then(function(reviews){
+    .then((reviews) => {
       res.json(reviews);
-    }, function(err){
+    }, (err) => {
       next(err);
     });
 };
 
-exports.getOne = function(req, res, next) {
-  const review = req.review;
+exports.getOne = (req, res, next) => {
+  const { review } = req;
   res.json(review);
 };
 
-exports.put = function(req, res, next) {
-  let review = req.review;
+exports.put = (req, res, next) => {
+  const { review } = req;
 
   const update = req.body;
 
   _.merge(review, update);
 
-  review.save(function(err, saved) {
+  review.save((err, saved) => {
     if (err) {
       next(err);
     } else {
       res.json(saved);
     }
-  })
+  });
 };
 
-exports.post = function(req, res, next) {
+exports.post = (req, res, next) => {
   const newreview = req.body;
   Review.create(newreview)
-    .then(function(review) {
+    .then((review) => {
       res.json(review);
-    }, function(err) {
+    }, (err) => {
       logger.error(err);
       next(err);
     });
 };
 
-// Deprication - remove
-// exports.delete = function(req, res, next) {
-//   req.review.remove(function(err, removed) {
-//     if (err) {
-//       next(err);
-//     } else {
-//       res.json(removed);
-//     }
-//   });
-// };
-exports.delete = function(req, res, next) {
-  req.review.deleteOne(function(err, removed) {
+exports.delete = (req, res, next) => {
+  req.review.deleteOne((err, removed) => {
     if (err) {
       next(err);
     } else {
