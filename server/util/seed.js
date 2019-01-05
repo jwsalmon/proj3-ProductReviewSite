@@ -1,6 +1,6 @@
 var User = require('../api/user/userModel');
 var Review = require('../api/review/reviewModel');
-// var _ = require('lodash');
+var _ = require('lodash');
 var logger = require('./logger');
 
 logger.log('Seeding the Database');
@@ -29,7 +29,7 @@ var cleanDB = function() {
   logger.log('... cleaning the DB');
   var cleanPromises = [User, Review]
     .map(function(model) {
-      return model.remove().exec();
+      return model.deleteMany().exec();
     });
   return Promise.all(cleanPromises);
 }
@@ -42,8 +42,7 @@ var createUsers = function(data) {
 
   return Promise.all(promises)
     .then(function(users) {
-      // return _.merge({users: users}, data || {});
-      return Object.assign({users: users}, data || {});
+      return _.merge({users: users}, data || {});
     });
 };
 

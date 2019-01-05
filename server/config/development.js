@@ -4,5 +4,6 @@ module.exports = {
   seed: true,
   db: {
     url: 'mongodb://localhost/project3'
-  }
+  },
+  static: 'dist'
 };
