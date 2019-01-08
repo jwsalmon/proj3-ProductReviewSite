@@ -3,12 +3,14 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-//import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, FormBtn } from "../components/Form";
 
 class Users extends Component {
     state = {
         users: [],
-        username: ""
+        username: "",
+        password: "",
+        token: ""
     }
     componentDidMount() {
         this.loadUsers();
@@ -21,27 +23,44 @@ class Users extends Component {
         .catch(err => console.log(err));
     }
 
+    handleLogin = () => {
+        API.loginUser()
+        .then ( res =>
+            this.setState)
+    }
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+      };
+
     render(){
         return(
             <Container fluid>
               <Row>
-                <Col size="md-6 sm-12">
-                  <h1>List of Users</h1>
-                  {this.state.users.length ? (
-                    <List>
-                        {this.state.users.map(user => (
-                        <ListItem key={user._id}>
-                            <Link to={"/users/" + user._id}>
-                            <strong>
-                                {user.username}
-                            </strong>
-                            </Link>
-                        </ListItem>
-                        ))}
-                    </List>
-                    ) : (
-                    <h3>No Results to Display</h3>
-                    )}
+                <Col size="md-6">
+                <form>
+                    <Input
+                    value={this.state.username}
+                    onChange={this.handleInputChange}
+                    name="Username"
+                    placeholder="Username (required)"
+                    />
+                    <Input
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="Password"
+                    placeholder="Password (required)"
+                    />
+                    <FormBtn
+                    disabled={!(this.state.username && this.state.password)}
+                    onClick={this.handleLogin}
+                    >
+                    Login
+                    </FormBtn>
+                </form>
+                  
                 </Col>
               </Row>
             </Container>
