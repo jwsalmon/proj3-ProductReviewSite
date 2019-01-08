@@ -8,6 +8,11 @@ const ReviewSchema = new Schema({
     required: true
   },
 
+  productId: {
+    type: Number
+    // required: true
+  },
+
   author: { type: Schema.Types.ObjectId, ref: 'user' }
 });
 

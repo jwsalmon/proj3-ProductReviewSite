@@ -2,9 +2,6 @@ const router = require('express').Router();
 const controller = require('./reviewController');
 const auth = require('../../auth/auth');
 
-// lock down the right routes :)
-router.param('id', controller.params);
-
 router.route('/')
   .get(controller.get)
   .post([
@@ -13,8 +10,6 @@ router.route('/')
   ], controller.post);
 
 router.route('/:id')
-  .get(controller.getOne)
-  .put(auth.decodeToken(), auth.getFreshUser(), controller.put)
-  .delete(auth.decodeToken(), auth.getFreshUser(), controller.delete);
+  .get(controller.findReviews);
 
 module.exports = router;

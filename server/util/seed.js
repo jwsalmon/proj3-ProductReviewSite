@@ -12,9 +12,9 @@ var users = [
 ];
 
 var reviews = [
-  {text: 'This is an amazing product.'},
+  {text: 'This is an amazing product.', productId: 1610313959},
   {text: 'This product sucks'},
-  {text: 'Whatever'}
+  {text: 'Whatever', productId: 1610313959}
 ];
 
 var createDoc = function(model, doc) {
