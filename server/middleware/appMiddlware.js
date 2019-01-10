@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  app.use(express.static(config.static));
   app.use(cors());
+  app.use(express.static(config.static));
   app.use(override());
 };
